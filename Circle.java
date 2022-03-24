@@ -1,41 +1,75 @@
 /**
 *
-* @author arunprasathshankar
-* fields(variables) and methods are members of a class
-* 2 types of members
-* i) class members
-* ii) instance members(members associated with objects) — also called static members
+* @author prashant kumar
 */
-public class Circle {
-    // class field : static is a must for class field(a.k.a static field)
-    // is like a global variable
-    // when accessed by a method which does not belong to class Circle, we have to use Circle.PI to access the field
-    // when accessed within class Circle, we use simply PI
-    public static final double PI = 3.14159; // final because PI value is fixed (i.e. constant)
-    // class method
-    public static double radiansToDegrees(double rads) {
-        System.out.println("Degrees --> "+(rads * (180/PI)));
-        return (rads * (180/PI));
-    }
-    public double r; // instance field because no static
-    // instance method
-    public double area() {
-        return PI * r * r;
-    }
-    // instance method
-    public double circumference() {
-        return 2 * PI * r;
-    }
+
+// In real project below libraries would be needed to work below code.
+import org.openqa.selenium.By;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class WNS {
+    //Download Chrome Driver and set systemProperty 
     public static void main(String[] args) {
-        Circle c = new Circle();
-        // when accessing a class field(static field), use Circle.PI and not c.PI
-        System.out.println("PI --> "+ Circle.PI);
-        // Accessing static methods(class methods)
-        Circle.radiansToDegrees(1.0);
-        // when initializing or accessing a class field(static field) or a static method, use c.PI
-        System.out.println("Radius --> "+ (c.r = 12));
-        System.out.println("Area --> "+(c.area()));
-        System.out.println("Circumference --> "+(c.circumference()));
+       System.setProperty(
+            "webdriver.chrome.driver",
+            "C:\\Users\\ADMIN\\Documents\\chromedriver.exe");
+        // Instantiate a ChromeDriver class.
+        WebDriver driver = new ChromeDriver();
+  
+        // Maximize the browser
+        driver.manage().window().maximize();
+  
+        // Launch Website
+        driver.get("https://www.moneycorp.com/en-gb/");
+        
+        WebElement languageDropdown = driver.findElement(By.id("language-dropdown-flag"));
+        languageDropdown.click();
+        
+        WebElement usaLanguage = driver.findElement(By.xpath("//a[@aria-label='USA English']"));
+        usaLanguage.click();
+        
+        //waiting for 30 seconds for the page to load
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        
+        WebElement findMoreButton = driver.findElement(By.xpath("//*[text()='Foreign exchange solutions']/../a"));
+        findMoreButton.click();
+       
+        //waiting for 10 seconds for the page to load
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        
+        WebElement search = driver.findElement(By.xpath("//button[@aria-label='Search']"));
+        search.click();
+        
+        WebElement searchInput = driver.findElement(By.xpath("//input[@id='nav_search']"));
+        searchInput.sendKeys("international payments");
+        searchInput.searchInput(Keys.RETURN);
+        
+        if(driver.getPageSource().contains("international payments"))
+        {
+              System.out.println("Correct page is displayed!");
+        }
+
+        else
+        {
+              System.out.println("Incorrect page is displayed!");
+         }
+        
+        List<WebElement> links = driver.findElements(By.className("results clearfix"));
+        
+        for (WebElement webElement : links) {
+            
+            WebElement hrefValue = webElement.findElement(By.xpath("/div[2]/a"));
+                
+                String printLinkText = hrefValue.getAttribute("href").toString();
+                assert printLinkText.contains("https://www.moneycorp.com/en-us/")
+                System.out.println(printLinkText);
+                
+            }
+        
+        driver.close();
+        
 
     }
 
