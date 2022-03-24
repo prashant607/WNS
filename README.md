@@ -1,2 +1,0 @@
-# WNS
-WNS Test

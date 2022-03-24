@@ -1,0 +1,1 @@
+This automation code is not created with any IDE . I have tried to write the automation steps in shortest time possible. Please do not cconsidor this as my final solution to the question. I would have created proper POM framework for this if i had IDE in my personal machine.
