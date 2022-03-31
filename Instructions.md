@@ -1,1 +1,8 @@
-This automation code is not created with any IDE . I have tried to write the automation steps in shortest time possible. Please do not cconsidor this as my final solution to the question. I would have created proper POM framework for this if i had IDE in my personal machine.
+
+Please follow below steps to setup environment to execute the automation script:
+a) Download and install any IDE (IntelliJ in my case).
+b) create a java project in IntelliJ.
+c) Download and install latest java .
+d) Download and import latest selenium package in abobe created project.
+e) Download and setup Environment Variable path to latest Chrome server folder.
+f) Execute the automation script.
